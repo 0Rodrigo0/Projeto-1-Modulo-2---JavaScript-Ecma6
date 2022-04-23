@@ -7,7 +7,7 @@
 body {
   height: 100vh;
   width: 100vw;
-  background: url(https://www.senior.com.br/wp-content/uploads/2020/11/novos_negocios-scaled.jpg);
+  background: url(novos_negocios-scaled.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -44,7 +44,7 @@ form {
 }
 
 .header {
-  color: white;
+  color: rgb(218, 212, 212);
   padding-bottom: 1rem;
   width: 30vw;
   margin: auto;
@@ -69,8 +69,32 @@ form {
   border: none;
 }
 .icon-add_shopping_cart {
-  padding: 1.5rem;
+  padding: 1.3rem;
   border: none;
   font-size: 2.3rem;
   color: rgb(218, 212, 212);
+}
+
+.list-container {
+  margin: auto;
+  width: 25rem;
+  background-color: rgb(19, 20, 20);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-itens {
+  min-width: 30%;
+  list-style: none;
+}
+
+.div-class {
+  margin: 0.5rem;
+  background: white;
+  color: black;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
