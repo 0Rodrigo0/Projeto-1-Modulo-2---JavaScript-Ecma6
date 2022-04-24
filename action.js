@@ -1,10 +1,18 @@
 // declarando as variaveis e as class
-const imputText = document.querySelector(".imput");
+const inputText = document.querySelector(".input");
 const addBtn = document.querySelector(".add-btn");
 const lisItens = document.querySelector(".list-itens");
 
+console.log(inputText.value);
 // evento dos botões
-addBtn.addEventListener("click", addItemToList);
+addBtn.addEventListener("click", function (event) {
+  if (document.querySelector(".input").value == "") {
+    return false;
+  } else {
+    addEventListener("click", addItemToList);
+    location.reload();
+  }
+});
 
 // funções
 function addItemToList(event) {
@@ -17,7 +25,7 @@ function addItemToList(event) {
 
   // criando as li
   const liItens = document.createElement("li");
-  liItens.innerText = imputText.value;
+  liItens.innerText = inputText.value;
   liItens.classList.add("li-class");
   divItens.appendChild(liItens);
   console.log(liItens);
@@ -25,5 +33,5 @@ function addItemToList(event) {
   //
   lisItens.appendChild(divItens);
   // limpa o imput
-  imputText.value = "";
+  inputText.value = "";
 }
