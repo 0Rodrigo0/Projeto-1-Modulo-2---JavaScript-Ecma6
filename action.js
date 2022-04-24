@@ -7,6 +7,7 @@ const lisItens = document.querySelector(".list-itens");
 document.addEventListener("DOMContentLoaded", getValuesDom);
 //addBtn.addEventListener("click", addItemToList);
 lisItens.addEventListener("click", deleteItens);
+lisItens.addEventListener("click", popUp);
 addBtn.addEventListener("click", function (event) {
   if (document.querySelector(".input").value == "") {
     return false;
@@ -50,6 +51,29 @@ function addItemToList(event) {
   lisItens.appendChild(divItens);
   // limpa o imput
   inputText.value = "";
+}
+
+function isNumber(price) {
+  return !isNaN(price);
+}
+
+function popUp(event) {
+  const item = event.target;
+  if (item.classList[0] === "check-box") {
+    let price = prompt(
+      "Digite o valor: " + "\n" + "(use . para os centavos): "
+    );
+    if (price == null || price == "") {
+      let alert = alert("Você deve digitar um valor!");
+    } else {
+      if (isNumber(price) === true) {
+        console.log(price);
+      } else {
+        alert = alert("Você deve digitar um valor!");
+        location.reload();
+      }
+    }
+  }
 }
 
 function deleteItens(event) {
