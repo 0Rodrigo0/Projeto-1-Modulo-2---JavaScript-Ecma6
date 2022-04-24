@@ -40,6 +40,13 @@ form {
   align-items: center;
 }
 
+.list-itens {
+  overflow: auto;
+  height: 20rem;
+  min-width: 30%;
+  list-style: none;
+}
+
 .logo {
   width: 7rem;
 }
@@ -48,12 +55,16 @@ form {
   font-family: "Maven Pro", sans-serif;
   font-size: 1.8rem;
   color: rgb(218, 212, 212);
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
   width: 700px;
   margin: auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+}
+
+header p {
+  margin-right: 15rem;
 }
 
 .input {
@@ -86,11 +97,6 @@ form {
   color: rgb(91, 196, 91);
   text-shadow: 0 0 0.5em rgb(91, 196, 91);
   transition: all 0.3s ease;
-}
-
-.list-itens {
-  min-width: 30%;
-  list-style: none;
 }
 
 .div-class {
