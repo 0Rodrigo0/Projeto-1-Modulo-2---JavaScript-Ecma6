@@ -5,30 +5,38 @@ const lisItens = document.querySelector(".list-itens");
 
 // evento dos botões
 document.addEventListener("DOMContentLoaded", getValuesDom);
-addBtn.addEventListener("click", addItemToList);
+//addBtn.addEventListener("click", addItemToList);
 lisItens.addEventListener("click", deleteItens);
-/*addBtn.addEventListener("click", function (event) {
+addBtn.addEventListener("click", function (event) {
   if (document.querySelector(".input").value == "") {
     return false;
   } else {
     addEventListener("click", addItemToList);
     location.reload();
   }
-});*/
+});
 
 // funções
 function addItemToList(event) {
   // previne o auto refresh da página
   event.preventDefault();
+
   // criando a div
   const divItens = document.createElement("div");
   divItens.classList.add("div-class");
+
+  // criando checkbox
+  const checkBox = document.createElement("input");
+  checkBox.setAttribute("type", "checkbox");
+  checkBox.classList.add("check-box");
+  divItens.appendChild(checkBox);
+
   // criando as li
   const novaliItens = document.createElement("li");
   novaliItens.innerText = inputText.value;
   novaliItens.classList.add("li-class");
-
   divItens.appendChild(novaliItens);
+
   // salva no localStorage
   saveLocalStorage(inputText.value);
 
@@ -36,7 +44,6 @@ function addItemToList(event) {
   const trash = document.createElement("button");
   trash.innerHTML = '<i class="icon-trash-o"></i>';
   trash.classList.add("trash-btn");
-  // aqui adicionando na div o btn
   divItens.appendChild(trash);
 
   //adiciona todos itens acima na lista
@@ -87,18 +94,22 @@ function getValuesDom() {
     const divItens = document.createElement("div");
     divItens.classList.add("div-class");
 
+    // criando checkbox
+    const checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.classList.add("check-box");
+    divItens.appendChild(checkBox);
+
     // criando as li
     const novaliItens = document.createElement("li");
     novaliItens.innerText = value;
     novaliItens.classList.add("li-class");
-
     divItens.appendChild(novaliItens);
 
     //criando botão de lixo e a classe
     const trash = document.createElement("button");
     trash.innerHTML = '<i class="icon-trash-o"></i>';
     trash.classList.add("trash-btn");
-    // aqui adicionando na div o btn
     divItens.appendChild(trash);
 
     //adiciona todos itens acima na lista
