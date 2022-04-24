@@ -3,16 +3,16 @@ const inputText = document.querySelector(".input");
 const addBtn = document.querySelector(".add-btn");
 const lisItens = document.querySelector(".list-itens");
 
-console.log(inputText.value);
 // evento dos botões
-addBtn.addEventListener("click", function (event) {
+addBtn.addEventListener("click", addItemToList);
+/*addBtn.addEventListener("click", function (event) {
   if (document.querySelector(".input").value == "") {
     return false;
   } else {
     addEventListener("click", addItemToList);
-    location.reload();
+    //location.reload();
   }
-});
+});*/
 
 // funções
 function addItemToList(event) {
@@ -24,14 +24,44 @@ function addItemToList(event) {
   divItens.classList.add("div-class");
 
   // criando as li
-  const liItens = document.createElement("li");
-  liItens.innerText = inputText.value;
-  liItens.classList.add("li-class");
-  divItens.appendChild(liItens);
-  console.log(liItens);
+  const novaliItens = document.createElement("li");
+  novaliItens.innerText = inputText.value;
+  novaliItens.classList.add("li-class");
 
-  //
+  divItens.appendChild(novaliItens);
+
+  saveLocalStorage(inputText.value);
+
+  //criando botão de lido e a classe
+  const botaoLido = document.createElement("button");
+  botaoLido.innerHTML = '<i class="fas fa-check"></i>';
+  botaoLido.classList.add("botao-lido");
+  // aqui adicionando na div o btn
+  divItens.appendChild(botaoLido);
+
+  //criando botão de lixo e a classe
+  const botaoLixo = document.createElement("button");
+  botaoLixo.innerHTML = '<i class="icon-trash-o"></i>';
+  botaoLixo.classList.add("botao-lixo");
+  // aqui adicionando na div o btn
+  divItens.appendChild(botaoLixo);
+
+  //adiciona todos itens acima na lista
   lisItens.appendChild(divItens);
   // limpa o imput
   inputText.value = "";
+}
+
+// salvando no localStorage
+function saveLocalStorage(value) {
+  let itens;
+  // verificando localStorage ta vaziu, se esta cria o array, se nao traz os itens
+  if (localStorage.getItem("itens") === null) {
+    itens = [];
+  } else {
+    itens = JSON.parse(localStorage.getItem("itens"));
+  }
+  //add item no array e salva no localStorage
+  itens.push(value);
+  localStorage.setItem("itens", JSON.stringify(itens));
 }
