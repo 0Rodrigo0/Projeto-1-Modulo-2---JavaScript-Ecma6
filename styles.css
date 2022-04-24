@@ -40,14 +40,13 @@ form {
   align-items: center;
 }
 
-.logo-senior {
-}
-
 .logo {
   width: 7rem;
 }
 
 .header {
+  font-family: "Maven Pro", sans-serif;
+  font-size: 1.8rem;
   color: rgb(218, 212, 212);
   padding-bottom: 1rem;
   width: 700px;
@@ -58,6 +57,7 @@ form {
 }
 
 .input {
+  font-family: "Maven Pro", sans-serif;
   box-shadow: 0 0 0.5em rgb(91, 196, 91);
   background: rgba(160, 158, 158, 0);
   padding: 10px 10px;
@@ -104,6 +104,7 @@ form {
 }
 
 .li-class {
+  font-family: "Maven Pro", sans-serif;
   padding-left: 1rem;
 }
 
