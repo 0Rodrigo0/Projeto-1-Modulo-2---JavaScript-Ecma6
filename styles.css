@@ -16,27 +16,31 @@ body {
 form {
   margin: auto;
   padding: 0;
-  width: 30vw;
+  width: 700px;
   display: flex;
-  justify-content: baseline;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
-  width: 80vw;
   margin: auto;
+  padding-top: 1.5rem;
+  width: 700px;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.list-container {
+  margin: auto;
+  padding-top: 2rem;
+  width: 700px;
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .logo-senior {
-  max-width: 90vw;
-  padding-top: 2rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .logo {
@@ -46,11 +50,11 @@ form {
 .header {
   color: rgb(218, 212, 212);
   padding-bottom: 1rem;
-  width: 30vw;
+  width: 700px;
   margin: auto;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .input {
@@ -73,16 +77,15 @@ form {
   border: none;
   font-size: 2.3rem;
   color: rgb(91, 196, 91);
-  text-shadow: 0 0 0.19em rgb(91, 196, 91);
 }
 
-.list-container {
-  margin: auto;
-  width: 25rem;
-  background-color: rgb(19, 20, 20);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.icon-add_shopping_cart:hover {
+  padding: 1.3rem;
+  border: none;
+  font-size: 2.3rem;
+  color: rgb(91, 196, 91);
+  text-shadow: 0 0 0.5em rgb(91, 196, 91);
+  transition: all 0.3s ease;
 }
 
 .list-itens {
@@ -92,14 +95,32 @@ form {
 
 .div-class {
   margin: 0.5rem;
-  background: white;
-  color: black;
+  background: none;
+  color: white;
   font-size: 1.5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.icon-trash-o {
+.li-class {
+  padding-left: 1rem;
+}
+
+.check-box {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+}
+
+.trash-btn {
+  background: none;
+  border: none;
+  padding-left: 1rem;
+}
+.icon-x {
+  font-size: 1.5rem;
+  color: rgb(91, 196, 91);
   pointer-events: none;
+  text-shadow: 0 0 0.5em rgb(91, 196, 91);
 }

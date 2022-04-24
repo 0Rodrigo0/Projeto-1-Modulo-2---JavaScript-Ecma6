@@ -27,7 +27,7 @@ function addItemToList(event) {
 
   // criando checkbox
   const checkBox = document.createElement("input");
-  checkBox.setAttribute("type", "checkbox");
+  checkBox.type = "checkbox";
   checkBox.classList.add("check-box");
   divItens.appendChild(checkBox);
 
@@ -42,7 +42,7 @@ function addItemToList(event) {
 
   //criando botão de lixo e a classe
   const trash = document.createElement("button");
-  trash.innerHTML = '<i class="icon-trash-o"></i>';
+  trash.innerHTML = '<i class="icon-x"></i>';
   trash.classList.add("trash-btn");
   divItens.appendChild(trash);
 
@@ -108,7 +108,7 @@ function getValuesDom() {
 
     //criando botão de lixo e a classe
     const trash = document.createElement("button");
-    trash.innerHTML = '<i class="icon-trash-o"></i>';
+    trash.innerHTML = '<i class="icon-x"></i>';
     trash.classList.add("trash-btn");
     divItens.appendChild(trash);
 
