@@ -64,7 +64,7 @@ form {
 }
 
 header p {
-  margin-right: 15rem;
+  margin: auto;
 }
 
 .input {
@@ -130,4 +130,8 @@ header p {
   color: rgb(91, 196, 91);
   pointer-events: none;
   text-shadow: 0 0 0.5em rgb(91, 196, 91);
+}
+
+.off {
+  pointer-events: none;
 }
