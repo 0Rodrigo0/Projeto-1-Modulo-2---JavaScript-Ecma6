@@ -48,6 +48,7 @@ function addItemToList(event) {
       lisItens.appendChild(divItens);
       // salva no localStorage
       saveLocalStorage(inputText.value);
+      savePricesLocalStorage(price);
     }
   }
   // limpa o imput
@@ -80,6 +81,19 @@ function saveLocalStorage(product) {
 
   listItens.push(product);
   localStorage.setItem("listItens", JSON.stringify(listItens));
+}
+
+function savePricesLocalStorage(price) {
+  let listPrices;
+
+  if (localStorage.getItem("listPrices") === null) {
+    listPrices = [];
+  } else {
+    listPrices = JSON.parse(localStorage.getItem("listPrices"));
+  }
+
+  listPrices.push(price);
+  localStorage.setItem("listPrices", JSON.stringify(listPrices));
 }
 
 function getValuesDom() {
@@ -129,8 +143,8 @@ function removeDomValues(product) {
   console.log(listItens);
   const productIndex = product.children[1].innerText;
   console.log(productIndex);
-
-  //
+  // remove do arreay de acordo com o index
   listItens.splice(listItens.indexOf(productIndex), 1);
+  // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
 }
