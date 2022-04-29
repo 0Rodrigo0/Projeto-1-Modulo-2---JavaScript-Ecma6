@@ -135,3 +135,11 @@ header p {
 .off {
   pointer-events: none;
 }
+
+/********* Display os preços **************/
+
+.price-show {
+  height: 300px;
+  width: 300px;
+  background-color: brown;
+}

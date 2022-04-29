@@ -2,6 +2,7 @@
 const inputText = document.querySelector(".input");
 const addBtn = document.querySelector(".add-btn");
 const lisItens = document.querySelector(".list-itens");
+const priceDisplay = document.querySelector("price-Display");
 
 // evento dos botões
 document.addEventListener("DOMContentLoaded", getValuesDom);
@@ -9,9 +10,14 @@ addBtn.addEventListener("click", addItemToList);
 lisItens.addEventListener("click", deleteItens);
 
 // funções
+
+// função que adiciona a lista e seus itens
 function addItemToList(event) {
   // previne o auto refresh da página
   event.preventDefault();
+
+  const priceDisplay = document.createElement("div");
+  priceDisplay.classList.add("price-show");
 
   // criando a div
   const divItens = document.createElement("div");
@@ -60,6 +66,7 @@ function isNumber(price) {
   return !isNaN(price);
 }
 
+// deleta da pagina
 function deleteItens(event) {
   const product = event.target;
 
@@ -71,6 +78,7 @@ function deleteItens(event) {
   }
 }
 
+// salva local storage o produto
 function saveLocalStorage(product) {
   let listItens;
 
@@ -84,6 +92,7 @@ function saveLocalStorage(product) {
   localStorage.setItem("listItens", JSON.stringify(listItens));
 }
 
+// salva preco no local storage
 function savePricesLocalStorage(price) {
   let listPrices;
 
@@ -92,11 +101,12 @@ function savePricesLocalStorage(price) {
   } else {
     listPrices = JSON.parse(localStorage.getItem("listPrices"));
   }
-
+  // salva no array
   listPrices.push(price);
   localStorage.setItem("listPrices", JSON.stringify(listPrices));
 }
 
+// busca valores no local sotrage
 function getValuesDom() {
   let listItens;
 
@@ -133,6 +143,7 @@ function getValuesDom() {
   });
 }
 
+// remove produtos local sotrage
 function removeDomValues(product) {
   let listItens;
 
@@ -141,15 +152,14 @@ function removeDomValues(product) {
   } else {
     listItens = JSON.parse(localStorage.getItem("listItens"));
   }
-  console.log(listItens);
   const productIndex = product.children[1].innerText;
-  console.log(productIndex);
   // remove do arreay de acordo com o index
   listItens.splice(listItens.indexOf(productIndex), 1);
   // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
 }
 
+// remove preco local sotrage
 function removePricesDomValues(price) {
   let listPrices;
 
@@ -158,7 +168,7 @@ function removePricesDomValues(price) {
   } else {
     listPrices = JSON.parse(localStorage.getItem("listPrices"));
   }
-  const priceIndex = price.children[0].innerText;
+  const priceIndex = price.children[1].innerText;
   console.log(priceIndex);
   // remove do arreay de acordo com o index
   listPrices.splice(listPrices.indexOf(priceIndex), 1);
