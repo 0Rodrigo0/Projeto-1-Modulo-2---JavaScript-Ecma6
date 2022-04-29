@@ -66,6 +66,7 @@ function deleteItens(event) {
   if (product.classList[0] === "trash-btn") {
     const listItens = product.parentElement;
     removeDomValues(listItens);
+    removePricesDomValues(listItens);
     listItens.remove();
   }
 }
@@ -147,4 +148,20 @@ function removeDomValues(product) {
   listItens.splice(listItens.indexOf(productIndex), 1);
   // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
+}
+
+function removePricesDomValues(price) {
+  let listPrices;
+
+  if (localStorage.getItem("listPrices") === null) {
+    listPrices = [];
+  } else {
+    listPrices = JSON.parse(localStorage.getItem("listPrices"));
+  }
+  const priceIndex = price.children[0].innerText;
+  console.log(priceIndex);
+  // remove do arreay de acordo com o index
+  listPrices.splice(listPrices.indexOf(priceIndex), 1);
+  // atualiza o array no local Storage
+  localStorage.setItem("listPrices", JSON.stringify(listPrices));
 }
