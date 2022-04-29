@@ -2,6 +2,7 @@
 const inputText = document.querySelector(".input");
 const addBtn = document.querySelector(".add-btn");
 const lisItens = document.querySelector(".list-itens");
+const priceDisplay = document.querySelector("price-Display");
 
 // evento dos botões
 document.addEventListener("DOMContentLoaded", getValuesDom);
@@ -14,6 +15,9 @@ lisItens.addEventListener("click", deleteItens);
 function addItemToList(event) {
   // previne o auto refresh da página
   event.preventDefault();
+
+  const priceDisplay = document.createElement("div");
+  priceDisplay.classList.add("price-show");
 
   // criando a div
   const divItens = document.createElement("div");
@@ -69,15 +73,16 @@ function deleteItens(event) {
 
   if (product.classList[0] === "trash-btn") {
     const listItens = product.parentElement;
+    const listPrice = price.parentElement;
     removeDomValues(listItens);
+    removePricesDomValues(listItens);
     listItens.remove();
+    listPrice.remove();
   }
 
-  if (price.classList[0] === "trash-btn") {
-    //listPrices = JSON.parse(localStorage.getItem("listPrices"));
-    const listPrices = price.value;
+  if (product.classList[0] === "trash-btn") {
+    listPrices = JSON.parse(localStorage.getItem("listPrices"));
     console.log(listPrices);
-    removePriceDomValues(listPrices);
   }
 }
 
@@ -149,19 +154,21 @@ function getValuesDom() {
 // remove produtos local sotrage
 function removeDomValues(product) {
   let listItens;
+
   if (localStorage.getItem("listItens") === null) {
     listItens = [];
   } else {
     listItens = JSON.parse(localStorage.getItem("listItens"));
   }
   const productIndex = product.children[1].innerText;
-  //remove do array de acordo com o index
+  // remove do arreay de acordo com o index
   listItens.splice(listItens.indexOf(productIndex), 1);
   // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
 }
 
-function removePriceDomValues(price) {
+// remove preco local sotrage
+function removePricesDomValues(price) {
   let listPrices;
 
   if (localStorage.getItem("listPrices") === null) {
@@ -169,11 +176,9 @@ function removePriceDomValues(price) {
   } else {
     listPrices = JSON.parse(localStorage.getItem("listPrices"));
   }
-  console.log(listPrices);
-  const priceIndex = price;
-  console.log(priceIndex);
-  //remove do array de acordo com o index
-  listPrices.splice(listPrices.indexOf(priceIndex), 1);
+  const priceIndex = price.innerText;
+  // remove do arreay de acordo com o index
+  console.log(listPrices.splice(listPrices.indexOf(priceIndex), 1));
   // atualiza o array no local Storage
   localStorage.setItem("listPrices", JSON.stringify(listPrices));
 }
