@@ -31,6 +31,10 @@ function addItemToList(event) {
   novaliItens.classList.add("li-class");
   divItens.appendChild(novaliItens);
 
+  const novaliPrices = document.createElement("li");
+  novaliPrices.classList.add("li-class-price");
+  divItens.appendChild(novaliPrices);
+
   //criando botão de lixo e a classe
   const trash = document.createElement("button");
   trash.innerHTML = '<i class="icon-x"></i>';
@@ -46,6 +50,7 @@ function addItemToList(event) {
     if (price === "" || isNumber(price) === false) {
       alert("Você deve digitar um valor numérico!");
     } else {
+      novaliPrices.innerText = price;
       //adiciona todos itens acima na lista
       lisItens.appendChild(divItens);
       // salva no localStorage
@@ -69,15 +74,10 @@ function deleteItens(event) {
 
   if (product.classList[0] === "trash-btn") {
     const listItens = product.parentElement;
+    const listPrices = price.parentElement;
     removeDomValues(listItens);
-    listItens.remove();
-  }
-
-  if (price.classList[0] === "trash-btn") {
-    //listPrices = JSON.parse(localStorage.getItem("listPrices"));
-    const listPrices = price.value;
-    console.log(listPrices);
     removePriceDomValues(listPrices);
+    listItens.remove();
   }
 }
 
@@ -136,6 +136,10 @@ function getValuesDom() {
     novaliItens.classList.add("li-class");
     divItens.appendChild(novaliItens);
 
+    const novaliPrices = document.createElement("li");
+    novaliPrices.classList.add("li-class-price");
+    divItens.appendChild(novaliPrices);
+
     //criando botão de lixo e a classe
     const trash = document.createElement("button");
     trash.innerHTML = '<i class="icon-x"></i>';
@@ -169,8 +173,7 @@ function removePriceDomValues(price) {
   } else {
     listPrices = JSON.parse(localStorage.getItem("listPrices"));
   }
-  console.log(listPrices);
-  const priceIndex = price;
+  const priceIndex = price.children[2].innerText;
   console.log(priceIndex);
   //remove do array de acordo com o index
   listPrices.splice(listPrices.indexOf(priceIndex), 1);
