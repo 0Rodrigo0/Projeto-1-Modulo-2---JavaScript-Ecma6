@@ -20,7 +20,6 @@ function addItemToList(event) {
   // criando checkbox
   const checkBox = document.createElement("input");
   checkBox.type = "checkbox";
-  checkBox.id = "chkbx";
   checkBox.classList.add("check-box");
   divItens.appendChild(checkBox);
 
@@ -36,92 +35,76 @@ function addItemToList(event) {
   trash.classList.add("trash-btn");
   divItens.appendChild(trash);
 
+  // valida o input esta vaziu
   if (inputText.value === "") {
     alert("Nome do produto é necessário!");
     return;
   } else {
-    //adiciona todos itens acima na lista
-    lisItens.appendChild(divItens);
-    // salva no localStorage
-    saveLocalStorage(inputText.value);
+    let price = prompt("Digite o valor: " + "\n" + "(Ex: 10.45): ");
+    if (price === "" || isNumber(price) === false) {
+      alert("Você deve digitar um valor numérico!");
+    } else {
+      //adiciona todos itens acima na lista
+      lisItens.appendChild(divItens);
+      // salva no localStorage
+      saveLocalStorage(inputText.value);
+    }
   }
-
   // limpa o imput
   inputText.value = "";
 }
 
-//valida se a entrada do popup é numero
+// valida se a entrada do popup é numero
 function isNumber(price) {
   return !isNaN(price);
 }
 
-// popup do valor dos produtos
-function popUp(event) {
-  const item = event.target;
-  if (item.classList[0] === "check-box") {
-    let price = prompt("Digite o valor: " + "\n" + "(Ex: 10.45): ");
-    if (price == null || price == "" || isNumber(price) === false) {
-      alert = alert("Você deve digitar um valor numérico!");
-    } else {
-      console.log(price);
-      savePriceOnLocalStorage(price);
-    }
+function deleteItens(event) {
+  const product = event.target;
+
+  if (product.classList[0] === "trash-btn") {
+    const listItens = product.parentElement;
+    removeDomValues(listItens);
+    listItens.remove();
   }
 }
 
-// salvando preço no localStorage
-function savePriceOnLocalStorage(value) {
-  let price;
-  // verificando localStorage ta vaziu, se esta cria o array, se nao traz os itens
-  if (localStorage.getItem("price") === null) {
-    price = [];
+function saveLocalStorage(product) {
+  let listItens;
+
+  if (localStorage.getItem("listItens") === null) {
+    listItens = [];
   } else {
-    price = JSON.parse(localStorage.getItem("price"));
+    listItens = JSON.parse(localStorage.getItem("listItens"));
   }
-  //add item no array e salva no localStorage
-  price.push(value);
-  localStorage.setItem("price", JSON.stringify(price));
+
+  listItens.push(product);
+  localStorage.setItem("listItens", JSON.stringify(listItens));
 }
 
-// salvando nomes no localStorage
-function saveLocalStorage(value) {
-  let itens;
-  // verificando localStorage ta vaziu, se esta cria o array, se nao traz os itens
-  if (localStorage.getItem("itens") === null) {
-    itens = [];
-  } else {
-    itens = JSON.parse(localStorage.getItem("itens"));
-  }
-  //add item no array e salva no localStorage
-  itens.push(value);
-  localStorage.setItem("itens", JSON.stringify(itens));
-}
-
-//traz os valores do localstorage
 function getValuesDom() {
-  let itens;
-  // verificando localStorage ta vaziu, se esta cria o array, se nao traz os itens
-  if (localStorage.getItem("itens") === null) {
-    itens = [];
+  let listItens;
+
+  if (localStorage.getItem("listItens") === null) {
+    listItens = [];
   } else {
-    itens = JSON.parse(localStorage.getItem("itens"));
+    listItens = JSON.parse(localStorage.getItem("listItens"));
   }
 
-  itens.forEach((value) => {
-    // repetiu o codigo de criação das divs
+  listItens.forEach((product) => {
     // criando a div
     const divItens = document.createElement("div");
     divItens.classList.add("div-class");
 
     // criando checkbox
     const checkBox = document.createElement("input");
-    checkBox.setAttribute("type", "checkbox");
+    checkBox.type = "checkbox";
     checkBox.classList.add("check-box");
     divItens.appendChild(checkBox);
 
     // criando as li
     const novaliItens = document.createElement("li");
-    novaliItens.innerText = value;
+    novaliItens.innerText = product;
     novaliItens.classList.add("li-class");
     divItens.appendChild(novaliItens);
 
@@ -131,40 +114,23 @@ function getValuesDom() {
     trash.classList.add("trash-btn");
     divItens.appendChild(trash);
 
-    //adiciona todos itens acima na lista
     lisItens.appendChild(divItens);
   });
 }
 
-// deleta itens da lista
-function deleteItens(event) {
-  const item = event.target;
-  if (item.classList[0] === "trash-btn") {
-    const value = item.parentElement;
-    deleteLocalStorage(value);
-    value.remove();
-  }
-  /*if (item.classList[0] === "botao-lido") {
-    const tarefa = item.parentElement;
-    tarefa.classList.toggle("completed");
-  }*/
-}
+function removeDomValues(product) {
+  let listItens;
 
-//deleta itens do localstorage
-function deleteLocalStorage(value) {
-  let itens;
-  // verificando localStorage ta vaziu, se esta cria o array, se nao traz os itens
-  if (localStorage.getItem("itens") === null) {
-    itens = [];
+  if (localStorage.getItem("listItens") === null) {
+    listItens = [];
   } else {
-    itens = JSON.parse(localStorage.getItem("itens"));
+    listItens = JSON.parse(localStorage.getItem("listItens"));
   }
-  // aqui ele esta buscando o valor contido no array do localStorage
-  const valueIndex = value.children[0].innerText;
+  console.log(listItens);
+  const productIndex = product.children[1].innerText;
+  console.log(productIndex);
 
-  //remove do array
-  itens.splice(itens.valueIndex, 1);
-
-  //atualiza o array
-  localStorage.setItem("itens", JSON.stringify(itens));
+  //
+  listItens.splice(listItens.indexOf(productIndex), 1);
+  localStorage.setItem("listItens", JSON.stringify(listItens));
 }
