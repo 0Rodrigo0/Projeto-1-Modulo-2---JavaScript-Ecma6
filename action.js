@@ -27,7 +27,6 @@ function addItemToList(event) {
 
   // criando as li
   const novaliItens = document.createElement("li");
-
   novaliItens.classList.add("li-class");
   divItens.appendChild(novaliItens);
 
@@ -69,15 +68,16 @@ function isNumber(price) {
 // deleta da pagina
 function deleteItens(event) {
   const product = event.target;
+
   if (product.classList[0] === "trash-btn") {
-    const listItens = product.parentElement;
-    console.log(listItens);
-    removeDomValues(listItens);
-    listItens.remove();
+    const itemRemove = product.parentElement;
+    console.log(itemRemove);
+    removeDomValues(itemRemove);
+    itemRemove.remove();
   }
 }
 
-// salva local storage o produto
+// salva no storage o produto
 function saveLocalStorage(product) {
   let listItens;
 
@@ -91,7 +91,7 @@ function saveLocalStorage(product) {
   localStorage.setItem("listItens", JSON.stringify(listItens));
 }
 
-// busca valores no local sotrage
+// busca no local sotrage
 function getValuesDom() {
   let listItens;
 
@@ -131,6 +131,7 @@ function getValuesDom() {
 // remove produtos local sotrage
 function removeDomValues(product) {
   let listItens;
+
   if (localStorage.getItem("listItens") === null) {
     listItens = [];
   } else {
@@ -139,7 +140,8 @@ function removeDomValues(product) {
   const productIndex = product.children[1].innerText;
   console.log(productIndex);
   //remove do array de acordo com o index
-  listItens.splice(listItens.indexOf(productIndex), 1);
+  listItens.splice(productIndex, 1);
+  //listItens.splice(listItens.indexOf(productIndex), 1);
   // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
 }
