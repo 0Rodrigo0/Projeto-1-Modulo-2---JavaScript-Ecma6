@@ -27,13 +27,9 @@ function addItemToList(event) {
 
   // criando as li
   const novaliItens = document.createElement("li");
-  novaliItens.innerText = inputText.value;
+
   novaliItens.classList.add("li-class");
   divItens.appendChild(novaliItens);
-
-  const novaliPrices = document.createElement("li");
-  novaliPrices.classList.add("li-class-price");
-  divItens.appendChild(novaliPrices);
 
   //criando botão de lixo e a classe
   const trash = document.createElement("button");
@@ -50,12 +46,15 @@ function addItemToList(event) {
     if (price === "" || isNumber(price) === false) {
       alert("Você deve digitar um valor numérico!");
     } else {
-      novaliPrices.innerText = price;
+      novaliItens.innerText = inputText.value + price;
+      const product = {
+        name: inputText.value,
+        valuePrice: price,
+      };
       //adiciona todos itens acima na lista
       lisItens.appendChild(divItens);
       // salva no localStorage
-      saveLocalStorage(inputText.value);
-      savePricesLocalStorage(price);
+      saveLocalStorage(product);
     }
   }
   // limpa o imput
@@ -70,13 +69,10 @@ function isNumber(price) {
 // deleta da pagina
 function deleteItens(event) {
   const product = event.target;
-  const price = event.target;
-
   if (product.classList[0] === "trash-btn") {
     const listItens = product.parentElement;
-    const listPrices = price.parentElement;
+    console.log(listItens);
     removeDomValues(listItens);
-    removePriceDomValues(listPrices);
     listItens.remove();
   }
 }
@@ -93,20 +89,6 @@ function saveLocalStorage(product) {
 
   listItens.push(product);
   localStorage.setItem("listItens", JSON.stringify(listItens));
-}
-
-// salva preco no local storage
-function savePricesLocalStorage(price) {
-  let listPrices;
-
-  if (localStorage.getItem("listPrices") === null) {
-    listPrices = [];
-  } else {
-    listPrices = JSON.parse(localStorage.getItem("listPrices"));
-  }
-  // salva no array
-  listPrices.push(price);
-  localStorage.setItem("listPrices", JSON.stringify(listPrices));
 }
 
 // busca valores no local sotrage
@@ -132,13 +114,9 @@ function getValuesDom() {
 
     // criando as li
     const novaliItens = document.createElement("li");
-    novaliItens.innerText = product;
+    novaliItens.innerText = product.name + product.valuePrice;
     novaliItens.classList.add("li-class");
     divItens.appendChild(novaliItens);
-
-    const novaliPrices = document.createElement("li");
-    novaliPrices.classList.add("li-class-price");
-    divItens.appendChild(novaliPrices);
 
     //criando botão de lixo e a classe
     const trash = document.createElement("button");
@@ -159,24 +137,9 @@ function removeDomValues(product) {
     listItens = JSON.parse(localStorage.getItem("listItens"));
   }
   const productIndex = product.children[1].innerText;
+  console.log(productIndex);
   //remove do array de acordo com o index
   listItens.splice(listItens.indexOf(productIndex), 1);
   // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
-}
-
-function removePriceDomValues(price) {
-  let listPrices;
-
-  if (localStorage.getItem("listPrices") === null) {
-    listPrices = [];
-  } else {
-    listPrices = JSON.parse(localStorage.getItem("listPrices"));
-  }
-  const priceIndex = price.children[2].innerText;
-  console.log(priceIndex);
-  //remove do array de acordo com o index
-  listPrices.splice(listPrices.indexOf(priceIndex), 1);
-  // atualiza o array no local Storage
-  localStorage.setItem("listPrices", JSON.stringify(listPrices));
 }
