@@ -86,7 +86,7 @@ function deleteItens(event) {
   }
   if (product.classList[0] === "check-box") {
     const checekd = product.parentElement;
-    checekd.classList.toggle("off");
+    checekd.classList.toggle(".off");
     somaValor(checekd);
   }
 }
@@ -171,9 +171,16 @@ function somaValor(product) {
   } else {
     listItens = JSON.parse(localStorage.getItem("listItens"));
   }
-  const takeValue = product.children[2].innerText;
-  valorTotal = parseFloat(valorTotal) + parseFloat(takeValue);
-  const show = document.querySelector(".value");
-  show.innerText = "R$ " + valorTotal.toFixed(2);
-  console.log(valorTotal);
+  const takeValue1 = product.children[0];
+  if (takeValue1.checked === true) {
+    const takeValue = product.children[2].innerText;
+    valorTotal = parseFloat(valorTotal) + parseFloat(takeValue);
+    const show = document.querySelector(".value");
+    show.innerText = "R$ " + valorTotal.toFixed(2);
+  } else {
+    const takeValue = product.children[2].innerText;
+    valorTotal = parseFloat(valorTotal) - parseFloat(takeValue);
+    const show = document.querySelector(".value");
+    show.innerText = "R$ " + valorTotal.toFixed(2);
+  }
 }

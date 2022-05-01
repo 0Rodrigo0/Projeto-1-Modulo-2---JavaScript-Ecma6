@@ -117,6 +117,10 @@ header p {
   padding-left: 1rem;
 }
 
+.li-class-price {
+  color: transparent;
+}
+
 .check-box {
   width: 1.5rem;
   height: 1.5rem;
