@@ -89,12 +89,13 @@ function deleteItens(event) {
   if (product.classList[0] === "trash-btn") {
     const itemRemove = product.parentElement;
     removeDomValues(itemRemove);
+    decreaseValue(itemRemove);
     itemRemove.remove();
   }
   if (product.classList[0] === "check-box") {
     const checekd = product.parentElement;
     checekd.classList.toggle(".off");
-    somaValor(checekd);
+    sumValue(checekd);
   }
 }
 
@@ -171,7 +172,7 @@ function removeDomValues(product) {
 }
 
 //função somadora
-function somaValor(product) {
+function sumValue(product) {
   let listItens;
 
   if (localStorage.getItem("listItens") === null) {
@@ -191,6 +192,21 @@ function somaValor(product) {
     const show = document.querySelector(".value");
     show.innerText = "R$ " + valorTotal.toFixed(2);
   }
+}
+
+// diminui valor ao edletar
+function decreaseValue(product) {
+  let listItens;
+
+  if (localStorage.getItem("listItens") === null) {
+    listItens = [];
+  } else {
+    listItens = JSON.parse(localStorage.getItem("listItens"));
+  }
+  const takeValue = product.children[2].innerText;
+  valorTotal = parseFloat(valorTotal) - parseFloat(takeValue);
+  const show = document.querySelector(".value");
+  show.innerText = "R$ " + valorTotal.toFixed(2);
 }
 
 // executa as changes
