@@ -123,7 +123,7 @@ function getValuesDom() {
     listItens = JSON.parse(localStorage.getItem("listItens"));
   }
 
-  listItens.forEach((product) => {
+  listItens.forEach(function (product) {
     // criando a div
     const divItens = document.createElement("div");
     divItens.classList.add("div-class");
@@ -158,15 +158,14 @@ function getValuesDom() {
 // remove produtos local sotrage
 function removeDomValues(product) {
   let listItens;
-
   if (localStorage.getItem("listItens") === null) {
     listItens = [];
   } else {
     listItens = JSON.parse(localStorage.getItem("listItens"));
   }
   const productIndex = product.children[1].innerText;
-  //remove do array de acordo com o index
-  listItens.splice(listItens.indexOf(productIndex), 1);
+  //remove do array de acordo com o index, faz um map pois eh um objeto
+  listItens.splice(listItens.map((a) => a.name).indexOf(productIndex), 1);
   // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
 }
