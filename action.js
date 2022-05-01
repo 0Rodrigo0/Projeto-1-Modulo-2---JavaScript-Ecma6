@@ -2,6 +2,11 @@
 const inputText = document.querySelector(".input");
 const addBtn = document.querySelector(".add-btn");
 const lisItens = document.querySelector(".list-itens");
+const valueTotal = document.querySelector(".value");
+var valorTotal = 0;
+
+const sum = document.querySelector(".value");
+sum.innerText = "R$ " + valorTotal;
 
 // evento dos botões
 document.addEventListener("DOMContentLoaded", getValuesDom);
@@ -30,6 +35,10 @@ function addItemToList(event) {
   novaliItens.classList.add("li-class");
   divItens.appendChild(novaliItens);
 
+  const novaliPrice = document.createElement("li");
+  novaliPrice.classList.add("li-class-price");
+  divItens.appendChild(novaliPrice);
+
   //criando botão de lixo e a classe
   const trash = document.createElement("button");
   trash.innerHTML = '<i class="icon-x"></i>';
@@ -45,15 +54,16 @@ function addItemToList(event) {
     if (price === "" || isNumber(price) === false) {
       alert("Você deve digitar um valor numérico!");
     } else {
-      novaliItens.innerText = inputText.value + price;
-      const product = {
-        name: inputText.value,
-        valuePrice: price,
-      };
+      novaliItens.innerText = inputText.value;
+      novaliPrice.innerText = price;
       //adiciona todos itens acima na lista
       lisItens.appendChild(divItens);
       // salva no localStorage
-      saveLocalStorage(product);
+      saveLocalStorage({
+        name: inputText.value,
+        valuePrice: price,
+        checkBox: false,
+      });
     }
   }
   // limpa o imput
@@ -71,9 +81,13 @@ function deleteItens(event) {
 
   if (product.classList[0] === "trash-btn") {
     const itemRemove = product.parentElement;
-    console.log(itemRemove);
     removeDomValues(itemRemove);
     itemRemove.remove();
+  }
+  if (product.classList[0] === "check-box") {
+    const checekd = product.parentElement;
+    checekd.classList.toggle("off");
+    somaValor(checekd);
   }
 }
 
@@ -114,9 +128,14 @@ function getValuesDom() {
 
     // criando as li
     const novaliItens = document.createElement("li");
-    novaliItens.innerText = product.name + product.valuePrice;
+    novaliItens.innerText = product.name;
     novaliItens.classList.add("li-class");
     divItens.appendChild(novaliItens);
+
+    const novaliPrice = document.createElement("li");
+    novaliPrice.innerText = product.valuePrice;
+    novaliPrice.classList.add("li-class-price");
+    divItens.appendChild(novaliPrice);
 
     //criando botão de lixo e a classe
     const trash = document.createElement("button");
@@ -138,10 +157,23 @@ function removeDomValues(product) {
     listItens = JSON.parse(localStorage.getItem("listItens"));
   }
   const productIndex = product.children[1].innerText;
-  console.log(productIndex);
   //remove do array de acordo com o index
-  listItens.splice(productIndex, 1);
-  //listItens.splice(listItens.indexOf(productIndex), 1);
+  listItens.splice(listItens.indexOf(productIndex), 1);
   // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
+}
+
+function somaValor(product) {
+  let listItens;
+
+  if (localStorage.getItem("listItens") === null) {
+    listItens = [];
+  } else {
+    listItens = JSON.parse(localStorage.getItem("listItens"));
+  }
+  const takeValue = product.children[2].innerText;
+  valorTotal = parseFloat(valorTotal) + parseFloat(takeValue);
+  const show = document.querySelector(".value");
+  show.innerText = "R$ " + valorTotal.toFixed(2);
+  console.log(valorTotal);
 }
