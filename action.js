@@ -22,6 +22,11 @@ changeList.addEventListener("click", changeListValue);
 
 // funções
 
+// valida se a entrada do popup é numero
+function isNumber(price) {
+  return !isNaN(price);
+}
+
 // função que adiciona a lista e seus itens
 function addItemToList(event) {
   // previne o auto refresh da página
@@ -77,28 +82,6 @@ function addItemToList(event) {
   inputText.value = "";
 }
 
-// valida se a entrada do popup é numero
-function isNumber(price) {
-  return !isNaN(price);
-}
-
-// deleta da pagina
-function deleteItens(event) {
-  const product = event.target;
-
-  if (product.classList[0] === "trash-btn") {
-    const itemRemove = product.parentElement;
-    removeDomValues(itemRemove);
-    decreaseValue(itemRemove);
-    itemRemove.remove();
-  }
-  if (product.classList[0] === "check-box") {
-    const checekd = product.parentElement;
-    checekd.classList.toggle(".off");
-    sumValue(checekd);
-  }
-}
-
 // salva no storage o produto
 function saveLocalStorage(product) {
   let listItens;
@@ -111,6 +94,26 @@ function saveLocalStorage(product) {
 
   listItens.push(product);
   localStorage.setItem("listItens", JSON.stringify(listItens));
+}
+
+// salva valor no local storage
+function saveValueTotalLocalStorage(total) {
+  let listTotal;
+
+  if (localStorage.getItem("listTotal") === null) {
+    listTotal = [];
+  } else {
+    listTotal = JSON.parse(localStorage.getItem("listTotal"));
+  }
+  const verify = total.children[0].checked;
+  if (verify) {
+    total = total.children[2].innerText;
+    listTotal.push(total);
+    localStorage.setItem("listTotal", JSON.stringify(listTotal));
+  } else {
+    deleteValueTotalLocalStorage(total);
+    return;
+  }
 }
 
 // busca no local sotrage
@@ -155,6 +158,25 @@ function getValuesDom() {
   });
 }
 
+// deleta da pagina
+function deleteItens(event) {
+  const product = event.target;
+
+  if (product.classList[0] === "trash-btn") {
+    const itemRemove = product.parentElement;
+    removeDomValues(itemRemove);
+    deleteValueTotalLocalStorage(itemRemove);
+    decreaseValue(itemRemove);
+    itemRemove.remove();
+  }
+  if (product.classList[0] === "check-box") {
+    const checekd = product.parentElement;
+    checekd.classList.toggle("off");
+    sumValue(checekd);
+    saveValueTotalLocalStorage(checekd);
+  }
+}
+
 // remove produtos local sotrage
 function removeDomValues(product) {
   let listItens;
@@ -168,6 +190,19 @@ function removeDomValues(product) {
   listItens.splice(listItens.map((a) => a.name).indexOf(productIndex), 1);
   // atualiza o array no local Storage
   localStorage.setItem("listItens", JSON.stringify(listItens));
+}
+
+function deleteValueTotalLocalStorage(total) {
+  let listTotal;
+
+  if (localStorage.getItem("listTotal") === null) {
+    listTotal = [];
+  } else {
+    listTotal = JSON.parse(localStorage.getItem("listTotal"));
+  }
+  const totalIndex = total.children[0].innerText;
+  listTotal.splice("listTotal".indexOf(totalIndex), 1);
+  localStorage.setItem("listTotal", JSON.stringify(listTotal));
 }
 
 //função somadora
@@ -202,10 +237,15 @@ function decreaseValue(product) {
   } else {
     listItens = JSON.parse(localStorage.getItem("listItens"));
   }
-  const takeValue = product.children[2].innerText;
-  valorTotal = parseFloat(valorTotal) - parseFloat(takeValue);
-  const show = document.querySelector(".value");
-  show.innerText = "R$ " + valorTotal.toFixed(2);
+
+  if (valorTotal <= 0) {
+    return;
+  } else {
+    const takeValue = product.children[2].innerText;
+    valorTotal = parseFloat(valorTotal) - parseFloat(takeValue);
+    const show = document.querySelector(".value");
+    show.innerText = "R$ " + valorTotal.toFixed(2);
+  }
 }
 
 // executa as changes
@@ -247,14 +287,14 @@ function changeListValue(element) {
         product.style.display = "flex";
         break;
       case "buy":
-        if (product.classList.contains(".off")) {
+        if (product.classList.contains("off")) {
           product.style.display = "flex";
         } else {
           product.style.display = "none";
         }
         break;
       case "open":
-        if (!product.classList.contains(".off")) {
+        if (!product.classList.contains("off")) {
           product.style.display = "flex";
         } else {
           product.style.display = "none";
