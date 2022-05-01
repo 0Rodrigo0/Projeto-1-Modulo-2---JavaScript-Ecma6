@@ -5,6 +5,7 @@ const lisItens = document.querySelector(".list-itens");
 const valueTotal = document.querySelector(".value");
 const main = document.querySelector("#changecolor");
 const button = document.querySelector("#mode-selector");
+const clear = document.querySelector("#clear");
 
 var valorTotal = 0;
 valueTotal.innerText = "R$ " + valorTotal;
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded", getValuesDom);
 addBtn.addEventListener("click", addItemToList);
 lisItens.addEventListener("click", deleteItens);
 button.addEventListener("click", changeMode);
+clear.addEventListener("click", clearList);
 
 // funções
 
@@ -210,4 +212,10 @@ function changeText() {
     return;
   }
   button.innerHTML = darkMode;
+}
+
+// limpa lista
+function clearList() {
+  localStorage.clear();
+  location.reload();
 }
