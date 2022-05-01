@@ -6,6 +6,7 @@ const valueTotal = document.querySelector(".value");
 const main = document.querySelector("#changecolor");
 const button = document.querySelector("#mode-selector");
 const clear = document.querySelector("#clear");
+const changeList = document.querySelector(".selector");
 
 var valorTotal = 0;
 valueTotal.innerText = "R$ " + valorTotal;
@@ -17,6 +18,7 @@ addBtn.addEventListener("click", addItemToList);
 lisItens.addEventListener("click", deleteItens);
 button.addEventListener("click", changeMode);
 clear.addEventListener("click", clearList);
+changeList.addEventListener("click", changeListValue);
 
 // funções
 
@@ -168,6 +170,7 @@ function removeDomValues(product) {
   localStorage.setItem("listItens", JSON.stringify(listItens));
 }
 
+//função somadora
 function somaValor(product) {
   let listItens;
 
@@ -190,13 +193,13 @@ function somaValor(product) {
   }
 }
 
-// Functions
+// executa as changes
 function changeMode() {
   changeClasses();
   changeText();
 }
 
-// change mode classes
+// altera classes
 function changeClasses() {
   main.classList.toggle(darkModeClass);
   button.classList.toggle(darkModeClass);
@@ -218,4 +221,29 @@ function changeText() {
 function clearList() {
   localStorage.clear();
   location.reload();
+}
+
+// funcção list modo
+function changeListValue(element) {
+  const itens = lisItens.childNodes;
+  itens.forEach(function (product) {
+    switch (element.target.value) {
+      case "all":
+        product.style.display = "flex";
+        break;
+      case "buy":
+        if (product.classList.contains(".off")) {
+          product.style.display = "flex";
+        } else {
+          product.style.display = "none";
+        }
+        break;
+      case "open":
+        if (!product.classList.contains(".off")) {
+          product.style.display = "flex";
+        } else {
+          product.style.display = "none";
+        }
+    }
+  });
 }

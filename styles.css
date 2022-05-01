@@ -189,6 +189,7 @@ header p {
   padding: 10px 10px;
   border-radius: 25px;
   background-color: rgb(65, 57, 57);
+  box-shadow: 0 0 0.5em rgb(91, 196, 91);
   color: white;
   width: 7rem;
   height: 2.5rem;
@@ -229,6 +230,7 @@ header p {
   padding: 10px 10px;
   border-radius: 25px;
   background-color: rgb(151, 32, 32);
+  box-shadow: 0 0 0.5em rgb(91, 196, 91);
   color: white;
   width: 7rem;
   height: 2.5rem;
@@ -242,4 +244,25 @@ header p {
   background-color: red;
   width: 7rem;
   height: 2.5rem;
+}
+
+/************ opções de visualização da lista ****************/
+
+.view-option {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#selector {
+  width: 10rem;
+  font-family: "Maven Pro", sans-serif;
+  box-shadow: 0 0 0.5em rgb(91, 196, 91);
+  padding: 5px 10px;
+  border-radius: 25px;
+  color: white;
+  border: none;
+  background-color: rgb(76, 68, 68, 0.7);
+  cursor: pointer;
 }
