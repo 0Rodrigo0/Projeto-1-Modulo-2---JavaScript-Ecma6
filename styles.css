@@ -4,10 +4,19 @@
   box-sizing: border-box;
 }
 
-body {
+#changecolor {
   height: 100vh;
   width: 100vw;
   background: url(novos_negocios-scaled.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+#changecolor.dark-mode {
+  height: 100vh;
+  width: 100vw;
+  background: url(novos_negocios-scaled-ConversImagem.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -148,7 +157,7 @@ header p {
 
 .soma {
   color: white;
-  height: 25vh;
+  height: 50vh;
   width: 30vw;
   display: flex;
   flex-direction: column;
@@ -171,4 +180,40 @@ header p {
   font-weight: 500;
   color: white;
   text-shadow: 3px 3px black;
+  padding-bottom: 5rem;
+}
+
+/**************  Dark Mode *********************/
+
+button {
+  border: none;
+  padding: 10px 10px;
+  border-radius: 25px;
+  background-color: rgb(65, 57, 57);
+  color: white;
+  width: 7rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(17, 16, 16);
+  width: 7rem;
+  height: 2.5rem;
+}
+
+button.dark-mode {
+  background-color: rgb(65, 57, 57);
+  color: white;
+  width: 7rem;
+  height: 2.5rem;
+}
+
+button.dark-mode:hover {
+  background-color: rgb(11, 11, 182);
+  width: 7rem;
+  height: 2.5rem;
 }

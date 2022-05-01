@@ -3,15 +3,18 @@ const inputText = document.querySelector(".input");
 const addBtn = document.querySelector(".add-btn");
 const lisItens = document.querySelector(".list-itens");
 const valueTotal = document.querySelector(".value");
-var valorTotal = 0;
+const main = document.querySelector("#changecolor");
+const button = document.querySelector("#mode-selector");
 
-const sum = document.querySelector(".value");
-sum.innerText = "R$ " + valorTotal;
+var valorTotal = 0;
+valueTotal.innerText = "R$ " + valorTotal;
+const darkModeClass = "dark-mode";
 
 // evento dos botões
 document.addEventListener("DOMContentLoaded", getValuesDom);
 addBtn.addEventListener("click", addItemToList);
 lisItens.addEventListener("click", deleteItens);
+button.addEventListener("click", changeMode);
 
 // funções
 
@@ -183,4 +186,28 @@ function somaValor(product) {
     const show = document.querySelector(".value");
     show.innerText = "R$ " + valorTotal.toFixed(2);
   }
+}
+
+// Functions
+function changeMode() {
+  changeClasses();
+  changeText();
+}
+
+// change mode classes
+function changeClasses() {
+  main.classList.toggle(darkModeClass);
+  button.classList.toggle(darkModeClass);
+}
+
+// muda texto botao
+function changeText() {
+  const lightMode = "Blue Mode";
+  const darkMode = "Dark Mode";
+
+  if (changecolor.classList.contains(darkModeClass)) {
+    button.innerHTML = lightMode;
+    return;
+  }
+  button.innerHTML = darkMode;
 }
