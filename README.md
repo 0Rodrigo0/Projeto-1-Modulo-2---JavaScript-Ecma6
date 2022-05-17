@@ -1,5 +1,7 @@
 # DevinHouse
 
+Para acessar: https://0rodrigo0.github.io/Projeto-1-Modulo-2---JavaScript-Ecma6/
+
 ## Módulo 2 - Projeto Avaliativo 1:
 
 Especificação de Funcionalidade do Projeto
